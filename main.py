@@ -154,6 +154,7 @@ class root:
 		
 		#obrázek ředitelny
 		self.image=Image.open("reditelna.jpg")
+		self.image = self.image.resize((1024,576), Image.ANTIALIAS) 
 		self.img=ImageTk.PhotoImage(self.image)
 		self.img_label=Label(self.main,image=self.img)
 		self.img_label.image=self.img
@@ -204,7 +205,7 @@ class root:
 			self.ucitele_spokojenost=0
 		self.ucitele_canvas.coords(self.utangle,0,0,self.ucitele_spokojenost*2,17)
 		self.ucitele_canvas.itemconfigure(self.utext,text=self.ucitele_spokojenost)
-		
+
 	def center(self,win): #funkce,která vycentruje současné okno
 		win.update()
 		w_req, h_req = win.winfo_width(), win.winfo_height()
@@ -214,7 +215,7 @@ class root:
 		x = (win.winfo_screenwidth() // 2) - (w // 2)
 		y = (win.winfo_screenheight() // 2) - (h // 2)
 		win.geometry('{0}x{1}+{2}+{3}'.format(w_req, h_req, x, y))
-		
+
 	def game_over_finance(self): #funkce na konec hry kvůli financím
 		self.popupmsg("konec hry, Škola zkrachovala, zkus to znovu")
 		
@@ -487,13 +488,13 @@ class root:
 		self.soutez_okno.grab_set()
 		self.soutez_okno.title("Konala se soutěž!")
 		self.soutez_label=Label(self.soutez_okno,font=self.label_font,text=str(self.competition_type)+"!")
-		self.soutez_label.pack()
+		self.soutez_label.grid(row=0,column=0,pady=20,padx=20)
 		self.result_label=Label(self.soutez_okno,font=self.label_font,text="") #prázdný label, přidá se do něj, kolikátá skončila hráčova škola
-		self.result_label.pack()
+		self.result_label.grid(row=1,column=0,pady=20,padx=20)
 		self.prize_label=Label(self.soutez_okno,font=self.label_font,text="") #prázdný label na info o tom, kolik peněz škola vyhrála
-		self.prize_label.pack()
+		self.prize_label.grid(row=2,column=0,pady=20,padx=20)
 		self.ok_b=Button(self.soutez_okno,text="ok",font=self.label_font,command=self.soutez_okno.destroy) #potvrzovací tlačítko
-		self.ok_b.pack()
+		self.ok_b.grid(row=3,column=0,pady=20,padx=20)
 		self.playerschool=randint(0,100)+int(self.competition_modifier) #náhodné skóre pro školu hráče
 		self.pos_values=[] #prázdný seznam na hodnoty NPC škol i hráčovy školy
 		for i in range (0,100):	#aby NPC škola nemohla mít stejné skóre jako hráč
@@ -612,7 +613,7 @@ class root:
 			self.ucitele_spokojenost+=5
 			self.studenti_spokojenost+=5
 			self.rodice_spokojenost+=5
-			self.event_class3("škola obrdžela grant na vědecké vybavení","green","level vědeckého vybavení + 1","spokojenost učitelů + 5","spokojenost žáků + 5","spokojenost rodičů + 5")		
+			self.event_class4("škola obrdžela grant na vědecké vybavení","green","level vědeckého vybavení + 1","spokojenost učitelů + 5","spokojenost žáků + 5","spokojenost rodičů + 5")		
 				
 	def event_class1(self,txt,clr,cons):
 		self.refresh()
